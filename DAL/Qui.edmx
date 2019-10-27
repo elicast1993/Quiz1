@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuizDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Datos_Personales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Apellido" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Direcciones">
+          <Key>
+            <PropertyRef Name="ID_Direcciones" />
+          </Key>
+          <Property Name="ID_Direcciones" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ID" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Pais" Type="varchar" MaxLength="10" />
+          <Property Name="Provincia" Type="varchar" MaxLength="10" />
+          <Property Name="Canton" Type="varchar" MaxLength="10" />
+          <Property Name="Distrito" Type="varchar" MaxLength="10" />
+          <Property Name="Detalle" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Direcciones__ID__25869641">
+          <End Role="Datos_Personales" Type="Self.Datos_Personales" Multiplicity="1" />
+          <End Role="Direcciones" Type="Self.Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datos_Personales">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Direcciones">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuizDBModelStoreContainer">
+          <EntitySet Name="Datos_Personales" EntityType="Self.Datos_Personales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Direcciones" EntityType="Self.Direcciones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Direcciones__ID__25869641" Association="Self.FK__Direcciones__ID__25869641">
+            <End Role="Datos_Personales" EntitySet="Datos_Personales" />
+            <End Role="Direcciones" EntitySet="Direcciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuizDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Datos_Personales">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Direcciones" Relationship="Self.FK__Direcciones__ID__25869641" FromRole="Datos_Personales" ToRole="Direcciones" />
+        </EntityType>
+        <EntityType Name="Direcciones">
+          <Key>
+            <PropertyRef Name="ID_Direcciones" />
+          </Key>
+          <Property Name="ID_Direcciones" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="ID" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Pais" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Provincia" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Canton" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Distrito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Detalle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Datos_Personales" Relationship="Self.FK__Direcciones__ID__25869641" FromRole="Direcciones" ToRole="Datos_Personales" />
+        </EntityType>
+        <Association Name="FK__Direcciones__ID__25869641">
+          <End Role="Datos_Personales" Type="Self.Datos_Personales" Multiplicity="1" />
+          <End Role="Direcciones" Type="Self.Direcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datos_Personales">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Direcciones">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuizDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Datos_Personales" EntityType="Self.Datos_Personales" />
+          <EntitySet Name="Direcciones" EntityType="Self.Direcciones" />
+          <AssociationSet Name="FK__Direcciones__ID__25869641" Association="Self.FK__Direcciones__ID__25869641">
+            <End Role="Datos_Personales" EntitySet="Datos_Personales" />
+            <End Role="Direcciones" EntitySet="Direcciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuizDBModelStoreContainer" CdmEntityContainer="QuizDBEntities">
+          <EntitySetMapping Name="Datos_Personales">
+            <EntityTypeMapping TypeName="QuizDBModel.Datos_Personales">
+              <MappingFragment StoreEntitySet="Datos_Personales">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Direcciones">
+            <EntityTypeMapping TypeName="QuizDBModel.Direcciones">
+              <MappingFragment StoreEntitySet="Direcciones">
+                <ScalarProperty Name="ID_Direcciones" ColumnName="ID_Direcciones" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Canton" ColumnName="Canton" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
